@@ -4,11 +4,10 @@
 
 
 Factoradic::Factoradic() {
-    f.resize(MAX_FACT + 1);
+    f.resize((uint32_t)MAX_FACT + 1);
     f[0] = 1;
-    for (int i = 1; i <= MAX_FACT; i++) {
+    for (int i = 1; i <= MAX_FACT; i++)
         f[i] = f[i - 1] * i;
-    }
 }
 
 string Factoradic::name() {
@@ -24,7 +23,7 @@ vector<vector<int> > Factoradic::generate_all(int n) {
         return vector<vector<int> >();
     vector<vector<int> > vec(static_cast<uint64_t>(f[n + 1]));
     vec[0] = vector<int>(static_cast<uint32_t>(n));
-    for (int i = 1; i < vec.size(); i++) {
+    for (size_t i = 1; i < vec.size(); i++) {
         vec[i] = vec[i - 1];
         next(vec[i]);
     }
@@ -33,7 +32,7 @@ vector<vector<int> > Factoradic::generate_all(int n) {
 
 bool Factoradic::is_valid(vector<int> const &v) {
     auto n = v.size();
-    for (size_t i = 0; i < v.size(); i++) {
+    for (size_t i = 0; i < n; i++) {
         if (v[n - i - 1] < 0 || v[n - i - 1] > i + 1)
             return false;
     }
@@ -43,7 +42,7 @@ bool Factoradic::is_valid(vector<int> const &v) {
 int64_t Factoradic::number_by_object(vector<int> const &v) {
     int64_t n = 0;
     auto m = v.size();
-    for (int i = 1; i <= m; i++) {
+    for (size_t i = 1; i <= m; i++) {
         auto product = f[i] * v[m - i];
         if (INT64_MAX - product <= n)
             return INT64_MAX;
@@ -68,8 +67,8 @@ vector<int> Factoradic::object_by_number(int n, int64_t k) {
 }
 
 bool Factoradic::check_min(vector<int> &v) {
-    int m = static_cast<int>(v.size());
-    for (int i = 1; i <= m; i++) {
+    auto m = v.size();
+    for (size_t i = 1; i <= m; i++) {
         if (v[m - i] > 0)
             return false;
     }
@@ -81,8 +80,8 @@ bool Factoradic::prev(vector<int> &v) {
     if (v.empty())
         return false;
     if (check_min(v)) {
-        for (int i = 1; i <= n; i++)
-            v[n - i] = i;
+        for (size_t i = 1; i <= n; i++)
+            v[n - i] = static_cast<int>(i);
         return false;
     }
 
@@ -96,8 +95,8 @@ bool Factoradic::prev(vector<int> &v) {
 }
 
 bool Factoradic::check_max(vector<int> &v) {
-    int m = static_cast<int>(v.size());
-    for (int i = 1; i <= m; i++) {
+    auto m = v.size();
+    for (size_t i = 1; i <= m; i++) {
         if (v[m - i] < i)
             return false;
     }

@@ -34,14 +34,14 @@ public:
 
     /// transform valid object to lexicographically next object,
     /// true if successful, false and first object if was last
-    bool next(vector<int> &v);
+    bool next(vector<int> &v) override;
 
     string name() override;
 
-    ~Factoradic();
+    ~Factoradic() override;
 
 private:
-    const size_t MAX_FACT = 20;
+    const int MAX_FACT = 20;
     vector<int64_t> f;
 
     bool check_min(vector<int> &v);
